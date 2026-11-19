@@ -22,7 +22,7 @@ Oyun ve kaynak kodu tek dosyadadır: [`index.html`](index.html). Three.js, harit
 
 Harita ve silah modelleri paylaşılan HTML’den alınmıştır. Silah modelleri: **Rifles – LeyamaTk**. Gömülü motor ve yardımcı kütüphanelerin lisansları HTML dosyasındadır.
 
-Oyun tek kişiliktir. Takım arkadaşı yoktur; rakip askerlerin köşeli kask, üniforma ve teçhizatı, ayrıca birinci şahıs el ve kol modelleri korunur.
+Oyun tek kişiliktir. Takım arkadaşı yoktur; altı rakip botun kırmızı tişörtü ve teçhizatsız, köşeli avatarı vardır. Saç stilleri, yüz ayrıntıları ve renk paletleri bottan bota değişir. Birinci şahıs el ve kol modelleri korunur.
 
 ## Oyun içi mağaza
 
