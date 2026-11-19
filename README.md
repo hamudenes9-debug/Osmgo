@@ -19,3 +19,7 @@ Oyun ve kaynak kodu tek dosyadadır: [`index.html`](index.html). Three.js, harit
 - Mobil grafik profili piksel oranını 1,15 ile, çizim arabelleğini yaklaşık 1 milyon pikselle ve görüş mesafesini 95 birimle sınırlar. Gölge haritaları kapalıdır; mobilde açılan WebGL bağlamında kenar yumuşatma da kapalıdır. Masaüstünde statik, 1024 × 1024 harita gölgeleri kullanılır. Donanım ve tarayıcıya göre performans değişir.
 
 Harita ve silah modelleri paylaşılan HTML’den alınmıştır. Silah modelleri: **Rifles – LeyamaTk**. Gömülü motor ve yardımcı kütüphanelerin lisansları HTML dosyasındadır.
+
+## Takım modu
+
+İki yapay zekâ takım arkadaşı oyuncunun yakınında başlar, peşinden gelir ve görüş alanına giren rakiplere ateş eder. Mavi artı işareti ve `Dost` sayacı takım arkadaşlarını tanımlar. Dost ateşi hasar vermez; sayaç yalnızca oyuncunun elediği rakipleri sayar. Askerlerin teçhizatı ve birinci şahıs el/kol animasyonları HTML içinde üretilir, ek dosya indirmez.
