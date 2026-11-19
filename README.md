@@ -22,7 +22,7 @@ Oyun ve kaynak kodu tek dosyadadır: [`index.html`](index.html). Three.js, harit
 
 Harita ve silah modelleri paylaşılan HTML’den alınmıştır. Silah modelleri: **Rifles – LeyamaTk**. Gömülü motor ve yardımcı kütüphanelerin lisansları HTML dosyasındadır.
 
-Oyun tek kişiliktir. Takım arkadaşı yoktur; rakip askerlerin kask ve teçhizatı, ayrıca birinci şahıs el ve kol modelleri korunur.
+Oyun tek kişiliktir. Takım arkadaşı yoktur; rakip askerlerin köşeli kask, üniforma ve teçhizatı, ayrıca birinci şahıs el ve kol modelleri korunur.
 
 ## Oyun içi mağaza
 
@@ -30,3 +30,5 @@ Oyun tek kişiliktir. Takım arkadaşı yoktur; rakip askerlerin kask ve teçhiz
 - **Bandaj** **$120** karşılığında +30 can, **McDonald’s Menü** **$280** karşılığında +60 can verir. Satın alınan ürünler çantada saklanır. Canın eksikken mağazadan **Kullan**'a basabilir veya **6** (bandaj) / **7** (menü) tuşlarını kullanabilirsin. Can, ürünün birinci şahıs animasyonu tamamlandığında yenilenir.
 - Promosyon kutusuna **`OSMAN100`** yazmak **$100.000** ekler. Kod tarayıcı kaydı başına bir kez kullanılabilir. Tarayıcı yerel depolamaya izin verirse bakiye, ürünler ve kodun kullanım durumu saklanır. Gerçek para kullanılmaz.
 - **M4A4 ($1.000):** Yeni 3B otomatik tüfek mağazada bir kez satın alınır ve kalıcı olarak açılır. Mağazada **Kuşan**, silah envanteri veya **8** tuşuyla seçebilirsin. M4A1 envanterde kalır.
+
+M4A1 Printstream modeli, depodaki `csgo-weapon-m4a1-s-printstream (1).zip` içindeki FBX ve dokudan tarayıcıya uygun glTF biçimine dönüştürülüp HTML’ye gömüldü. Oyuncu **2** tuşuyla bu modeli seçebilir; botlar aynı tüfeğin hafifletilmiş 3B modelini taşır. M4A4 ve diğer envanter seçenekleri korunur.
