@@ -23,3 +23,9 @@ Oyun ve kaynak kodu tek dosyadadır: [`index.html`](index.html). Three.js, harit
 Harita ve silah modelleri paylaşılan HTML’den alınmıştır. Silah modelleri: **Rifles – LeyamaTk**. Gömülü motor ve yardımcı kütüphanelerin lisansları HTML dosyasındadır.
 
 Oyun tek kişiliktir. Takım arkadaşı yoktur; rakip askerlerin kask ve teçhizatı, ayrıca birinci şahıs el ve kol modelleri korunur.
+
+## Oyun içi mağaza
+
+- Masaüstünde **B**, mobilde **Mağaza** düğmesiyle açılır. Başlangıçta 300 oyun parası verilir; elenen her rakip +150 kazandırır.
+- **Bandaj** 120 oyun parası karşılığında +30 can, **McDonald’s Menü** 280 oyun parası karşılığında +60 can verir. Satın alınan ürünler çantada saklanır. Canın eksikken mağazadan **Kullan**'a basabilir veya **6** (bandaj) / **7** (menü) tuşlarını kullanabilirsin. Can, ürünün birinci şahıs animasyonu tamamlandığında yenilenir.
+- Promosyon kutusuna **`OSMAN100`** yazmak 100.000 oyun parası ekler. Kod tarayıcı kaydı başına bir kez kullanılabilir. Tarayıcı yerel depolamaya izin verirse bakiye, ürünler ve kodun kullanım durumu saklanır. Gerçek para kullanılmaz.

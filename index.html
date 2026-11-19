@@ -64,6 +64,19 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}
 @media (orientation:portrait){#game[data-input=touch] #rotate{display:block;top:auto;bottom:calc(var(--bottom) + clamp(88px,23vmin,138px) + 10px)}}
 @media (max-height:480px){.panel{padding:12px 16px}.instructions{margin:8px 0;padding:6px 0}p{margin:6px 0}#row{margin:6px 0}.credit{margin-top:6px}}
 @media (max-width:375px){#touchActions{gap:5px;grid-template-columns:repeat(3,minmax(44px,50px))}.touch-btn{font-size:.61rem}}
+#cashHUD{margin-right:7px;color:var(--amber);font-weight:750}#kills{white-space:nowrap}
+#shopPanel{max-width:670px}.shopHead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}.shopBalance{color:var(--amber);font-weight:750;font-variant-numeric:tabular-nums}
+#shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:10px;margin:12px 0}
+.shelf-card{min-width:0;background:#202720;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.shelf-card canvas{display:block;width:100%;height:102px;object-fit:contain;animation:displayBob 4s ease-in-out infinite}.shelf-card:nth-child(2) canvas{animation-delay:-1.5s}
+@keyframes displayBob{50%{transform:translateY(4px) rotate(2deg)}}@media(prefers-reduced-motion:reduce){.shelf-card canvas{animation:none}}
+.item-info{padding:5px 12px 12px}.item-info h3{margin:0}.item-info p{font-size:.82rem;color:#d7d1c1;margin:4px 0 8px}
+.item-info button{font-size:.82rem;padding-inline:9px}.item-info button:disabled{opacity:.55;cursor:not-allowed}
+#promo{display:flex;gap:8px;align-items:end;flex-wrap:wrap}#promo label{display:grid;gap:3px;flex:1 1 140px;font-size:.79rem;color:#ddd5bd}
+#promoCode{width:100%;height:44px;border:1px solid var(--line);border-radius:6px;background:#111510;color:#f5eedc;padding:8px 10px;font:inherit;font-size:16px;text-transform:uppercase}
+#shopStatus{min-height:1.4em;font-size:.82rem;color:var(--amber)}
+@media(max-width:490px){.shelf-card{display:grid;grid-template-columns:74px minmax(0,1fr);align-items:center}.shelf-card canvas{height:72px}.item-info{padding:7px 7px 7px 0}.item-info h3{font-size:1rem}}
+@media(max-height:480px) and (min-width:491px){.shelf-card canvas{height:65px}#shelf{margin:6px 0}}
 </style>
 </head>
 <body>
@@ -73,9 +86,9 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}
     <div id="hurt"></div><div id="scope" hidden></div><div id="cross"></div>
     <div class="chip" id="hp">Can <span id="hpn">100</span><div class="bar"><span id="hpb" style="width:100%"></span></div></div>
     <div class="chip" id="wp"><small id="wn"></small><b id="am"></b></div>
-    <div class="chip" id="kills">Elenen: <b id="kn">0</b></div>
+    <div class="chip" id="kills"><span id="cashHUD" aria-label="Oyun parası">◈ <span id="cash">300</span></span>Elenen: <b id="kn">0</b></div>
     <div class="chip" id="viewMode" hidden>Kilitsiz fare · İmleci oyun alanında hareket ettir veya yön tuşlarını kullan.</div>
-    <div id="tip">WASD hareket · Shift koş · Boşluk zıpla · R şarjör · E envanter · 1–5 silah · F tam ekran · M kilitsiz fare</div>
+    <div id="tip">WASD hareket · Shift koş · Boşluk zıpla · R şarjör · E envanter · 1–5 silah · F tam ekran · B mağaza · M kilitsiz fare</div>
   </div>
   <div id="touch" hidden>
     <div id="look" aria-label="Dokunmatik bakış alanı"></div>
@@ -87,7 +100,7 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}
       <button type="button" class="touch-btn" id="jump"><span aria-hidden="true">↑</span>Zıpla</button>
       <button type="button" class="touch-btn" id="fire"><span aria-hidden="true">✛</span>Ateş</button>
     </div>
-    <div id="touchMenu"><button type="button" class="touch-btn" id="bag">Envanter</button><button type="button" class="touch-btn" id="pause" aria-label="Duraklat">Ⅱ</button></div>
+    <div id="touchMenu"><button type="button" class="touch-btn" id="bag" aria-label="Silah envanteri">Silah</button><button type="button" class="touch-btn" id="openShop">Mağaza</button><button type="button" class="touch-btn" id="pause" aria-label="Duraklat">Ⅱ</button></div>
     <div id="rotate">Daha geniş görüş için yatay çevir.</div>
   </div>
   <section class="ov" id="menu" aria-labelledby="mt">
@@ -95,7 +108,7 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}
       <p class="eyebrow">SAHA GÖREVİ / 01</p>
       <h1 id="mt">Çöl Operasyonu</h1><p id="ms">Açık haritada tek başına hayatta kal.</p>
       <div class="instructions">
-        <span class="desktop-help">WASD hareket · Fare bakış · Shift koş · Boşluk zıpla · Sol tık ateş · Sağ tık dürbün (Hayalet) · R şarjör · 1–5 silah · E envanter · F tam ekran</span>
+        <span class="desktop-help">WASD hareket · Fare bakış · Shift koş · Boşluk zıpla · Sol tık ateş · Sağ tık dürbün (Hayalet) · R şarjör · 1–5 silah · E envanter · B mağaza · F tam ekran</span>
         <span class="touch-help">Sol çubukla hareket et, sağ alanı sürükleyerek bak. Ekran tuşlarıyla ateş et, koş, zıpla ve şarjör değiştir.</span>
       </div>
       <div class="actions"><button class="primary" id="go" type="button" disabled>Yükleniyor…</button><button class="secondary" id="mode" type="button">Dokunmatik kontroller</button><button class="secondary" id="fullscreen" type="button">Tam ekran</button></div>
@@ -107,6 +120,16 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}
       <p class="eyebrow">SAHA EKİPMANI</p><h2 id="inv-title">Envanter</h2>
       <p>Silahını seç ve oyuna dön.</p><div id="row"></div>
       <button type="button" class="primary" id="resume">Oyuna dön <span class="desktop-help">· E</span></button>
+    </div>
+  </section>
+  <section class="ov" id="shop" aria-labelledby="shop-title" hidden>
+    <div class="panel" id="shopPanel">
+      <p class="eyebrow">SAHA TEDARİĞİ</p>
+      <div class="shopHead"><h2 id="shop-title">Mağaza</h2><span class="shopBalance">◈ <span id="shopCash">300</span> oyun parası</span></div>
+      <div id="shelf"></div>
+      <form id="promo"><label>Promosyon kodu<input id="promoCode" placeholder="Kodu yaz" maxlength="32" autocapitalize="characters" autocomplete="off" spellcheck="false"></label><button class="secondary" type="submit">Kodu kullan</button></form>
+      <p id="shopStatus" role="status"></p>
+      <button class="primary" type="button" id="closeShop">Oyuna dön <span class="desktop-help">· B</span></button>
     </div>
   </section>
 </main>
@@ -797,10 +820,10 @@ SOFTWARE.
   ]);
   const limbVector = new THREE.Vector3(),
     up = new THREE.Vector3(0, 1, 0);
-  function viewArm() {
+  function viewArm(parent = handRig) {
     const arm = new THREE.Mesh(sleeveGeometry, fabric),
       hand = new THREE.Mesh(handGeometry, fabric);
-    handRig.add(arm, hand);
+    parent.add(arm, hand);
     return { arm, hand, wrist: new THREE.Vector3(), elbow: new THREE.Vector3() };
   }
   const gripArm = viewArm(),
@@ -843,6 +866,303 @@ SOFTWARE.
     supportArm.elbow.set(-baseX - 0.24, -0.4, 0.24);
     placeArm(gripArm, 1, -0.28);
     placeArm(supportArm, -1, 0.66);
+  }
+  // Local, offline shop. Models share the same procedural geometry and renderer as the weapons.
+  const goods = {
+    bandage: { name: 'Bandaj', price: 120, heal: 30, seconds: 1.55, key: '6', build: bandageModel },
+    meal: { name: 'McDonald’s Menü', price: 280, heal: 60, seconds: 2.25, key: '7', build: mealModel },
+  };
+  const walletKey = 'osmgo.shop.v1';
+  const numberFormat = new Intl.NumberFormat('tr-TR');
+  const safeNumber = (value, fallback = 0) =>
+    Number.isSafeInteger(value) && value >= 0 ? value : fallback;
+  function readWallet() {
+    const initial = { cash: 300, stock: { bandage: 0, meal: 0 }, redeemed: false };
+    try {
+      const data = JSON.parse(localStorage.getItem(walletKey));
+      if (!data) return initial;
+      return {
+        cash: safeNumber(data.cash, 300),
+        stock: { bandage: safeNumber(data.stock?.bandage), meal: safeNumber(data.stock?.meal) },
+        redeemed: data.redeemed === true,
+      };
+    } catch {
+      return initial;
+    }
+  }
+  const wallet = readWallet(),
+    cards = new Map();
+  let useAction = null,
+    queuedItem = null;
+  function refreshWallet() {
+    const cash = numberFormat.format(wallet.cash);
+    $('cash').textContent = $('shopCash').textContent = cash;
+    for (const [id, { buy, use, stock }] of cards) {
+      stock.textContent = numberFormat.format(wallet.stock[id]);
+      buy.disabled = wallet.cash < goods[id].price;
+      use.disabled = wallet.stock[id] === 0 || P.hp >= 100 || Boolean(useAction);
+    }
+  }
+  function saveWallet() {
+    try {
+      localStorage.setItem(walletKey, JSON.stringify(wallet));
+    } catch {
+      /* Sessions still work if file storage is blocked. */
+    }
+    refreshWallet();
+  }
+  function sayShop(text) {
+    $('shopStatus').textContent = text;
+  }
+  function buyItem(id) {
+    const item = goods[id];
+    if (state !== 'shop' || !item || wallet.cash < item.price) return;
+    wallet.cash -= item.price;
+    wallet.stock[id]++;
+    saveWallet();
+    sayShop(item.name + ' çantaya eklendi.');
+  }
+  $('promo').addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (state !== 'shop') return;
+    const field = $('promoCode');
+    if (field.value.trim().toUpperCase() !== 'OSMAN100') {
+      sayShop('Geçersiz kod.');
+      return;
+    }
+    if (wallet.redeemed) {
+      sayShop('Bu kod daha önce kullanıldı.');
+      return;
+    }
+    wallet.redeemed = true;
+    wallet.cash += 100000;
+    field.value = '';
+    saveWallet();
+    sayShop('+100.000 oyun parası hesabına eklendi.');
+  });
+  function makeShop() {
+    const previews = new THREE.Scene(),
+      camera = new THREE.PerspectiveCamera(35, 1, 0.05, 10);
+    camera.position.set(0.22, 0.2, 0.83);
+    camera.lookAt(0, 0.035, 0);
+    previews.background = new THREE.Color(0x202720);
+    previews.add(new THREE.HemisphereLight(0xfff5d7, 0x979288, 1.5));
+    const light = new THREE.DirectionalLight(0xfff1d8, 0.7);
+    light.position.set(1, 3, 2);
+    previews.add(light);
+    const size = 160,
+      target = new THREE.WebGLRenderTarget(size, size, { depthBuffer: true, stencilBuffer: false });
+    target.texture.encoding = THREE.sRGBEncoding;
+    try {
+      for (const [id, item] of Object.entries(goods)) {
+        const card = document.createElement('article');
+        card.className = 'shelf-card';
+        card.innerHTML = `<canvas width="${size}" height="${size}" aria-hidden="true"></canvas><div class="item-info"><h3>${item.name}</h3><p>+${item.heal} can · Çantada <strong></strong></p><div class="actions"><button class="primary" type="button">Al · ${item.price}</button><button class="secondary" type="button">Kullan <span class="desktop-help">· ${item.key}</span></button></div></div>`;
+        $('shelf').appendChild(card);
+        const [buy, use] = card.querySelectorAll('button'),
+          stock = card.querySelector('strong');
+        cards.set(id, { buy, use, stock });
+        buy.onclick = () => buyItem(id);
+        use.onclick = () => {
+          if (state !== 'shop' || use.disabled || pendingLock) return;
+          queuedItem = id;
+          start({ keepUnlocked: unlockedMouse });
+        };
+        try {
+          const model = (item.model = item.build());
+          model.update(0);
+          previews.add(model.root);
+          const pixels = new Uint8Array(size * size * 4);
+          ren.setRenderTarget(target);
+          ren.render(previews, camera);
+          ren.readRenderTargetPixels(target, 0, 0, size, size, pixels);
+          previews.remove(model.root);
+          const ctx = card.querySelector('canvas').getContext('2d'),
+            image = ctx.createImageData(size, size);
+          for (let y = 0; y < size; y++)
+            image.data.set(
+              pixels.subarray((size - 1 - y) * size * 4, (size - y) * size * 4),
+              y * size * 4,
+            );
+          ctx.putImageData(image, 0, 0);
+        } catch (error) {
+          card.querySelector('canvas').hidden = true;
+          console.warn('Ürün önizlemesi çizilemedi.', error);
+        }
+      }
+    } finally {
+      ren.setRenderTarget(null);
+      target.dispose();
+    }
+    refreshWallet();
+  }
+  function meshKit(pieces) {
+    return new THREE.Mesh(kit(pieces), fabric);
+  }
+  function bandageModel() {
+    const root = new THREE.Group(),
+      roll = new THREE.Group();
+    const shell = 0xedddba,
+      thread = 0xb69c78,
+      core = 0x514034;
+    roll.add(
+      meshKit([
+        ['tube', shell, 0, 0, 0, 0.146, 0.127, 0.146, 0, 0, Math.PI / 2],
+        ...[-1, 1].flatMap((n) => [
+          ['tube', thread, n * 0.065, 0, 0, 0.117, 0.004, 0.117, 0, 0, Math.PI / 2],
+          ['tube', shell, n * 0.068, 0, 0, 0.089, 0.003, 0.089, 0, 0, Math.PI / 2],
+          ['tube', core, n * 0.071, 0, 0, 0.055, 0.005, 0.055, 0, 0, Math.PI / 2],
+        ]),
+      ]),
+    );
+    const wrap = meshKit([
+      ['box', shell, 0, 0, -0.072, 0.123, 0.009, 0.15],
+      ['box', 0xc7b18c, 0, 0.005, -0.012, 0.123, 0.003, 0.008],
+      ['box', 0x9c4945, 0, 0.006, -0.099, 0.036, 0.002, 0.009],
+      ['box', 0x9c4945, 0, 0.006, -0.099, 0.009, 0.002, 0.036],
+    ]);
+    wrap.position.set(0, -0.058, 0.014);
+    root.add(roll, wrap);
+    return {
+      root,
+      update(t) {
+        const motion = Math.sin(Math.PI * t);
+        roll.rotation.x = -t * 14;
+        wrap.scale.z = 0.55 + 2.1 * motion;
+        wrap.rotation.x = -motion * 0.42;
+        root.rotation.z = -0.2 + motion * 0.64;
+      },
+    };
+  }
+  function mealModel() {
+    const root = new THREE.Group(),
+      burger = new THREE.Group();
+    burger.add(
+      meshKit([
+        ['orb', 0xc57c32, 0, -0.038, 0, 0.202, 0.061, 0.18],
+        ['orb', 0x4d2c21, 0, -0.011, 0, 0.213, 0.042, 0.187],
+        ['box', 0xf0bc37, 0, 0.012, 0, 0.143, 0.008, 0.135, 0, 0.36],
+        ['orb', 0xc74532, 0, 0.021, 0, 0.21, 0.023, 0.18],
+        ['orb', 0x608938, 0, 0.033, 0, 0.217, 0.026, 0.193],
+        ['dome', 0xe6a653, 0, 0.035, 0, 0.206, 0.123, 0.193],
+        ...[
+          [-0.046, 0.089, 0.03],
+          [0.036, 0.088, 0.031],
+          [-0.023, 0.096, -0.018],
+          [0.044, 0.084, -0.033],
+          [0.003, 0.085, 0.05],
+        ].map(([x, y, z], i) => ['orb', 0xffe3a2, x, y, z, 0.015, 0.004, 0.008, 0, i * 0.5]),
+      ]),
+    );
+    burger.position.set(-0.054, -0.024, 0.067);
+    root.add(burger);
+    const carton = meshKit([
+      ['box', 0xbd2524, 0.06, -0.018, -0.068, 0.119, 0.107, 0.052, 0, 0, -0.17],
+      ...Array.from({ length: 7 }, (_, i) => [
+        'box',
+        i % 2 ? 0xfbc554 : 0xeeb044,
+        0.012 + i * 0.014,
+        0.065 + (i % 3) * 0.009,
+        -0.07 + (i % 2) * 0.012,
+        0.013,
+        0.097,
+        0.014,
+        0,
+        0,
+        (3 - i) * 0.08,
+      ]),
+      ...[-1, 1].map((n) => [
+        'orb',
+        0xffd33c,
+        0.06 + n * 0.014,
+        -0.018,
+        -0.039,
+        0.023,
+        0.042,
+        0.007,
+        0,
+        0,
+        n * 0.2,
+      ]),
+    ]);
+    const cup = meshKit([
+      ['tube', 0xffedd3, 0.104, -0.004, 0.025, 0.056, 0.125, 0.056],
+      ['tube', 0xc63b35, 0.104, -0.026, 0.025, 0.058, 0.066, 0.058],
+      ['tube', 0xede4d3, 0.104, 0.064, 0.025, 0.066, 0.014, 0.066],
+      ['tube', 0xd74637, 0.093, 0.099, 0.025, 0.008, 0.072, 0.008, 0, 0, 0.23],
+    ]);
+    root.add(carton, cup);
+    return {
+      root,
+      update(t) {
+        const bite = Math.sin(Math.PI * Math.min(1, t * 1.1));
+        burger.position.y = -0.024 + bite * 0.11;
+        burger.position.z = 0.067 + bite * 0.035;
+        burger.rotation.z = -bite * 0.28;
+        burger.scale.setScalar(1 - Math.floor(t * 3) * 0.19);
+        carton.rotation.z = Math.sin(t * 10) * 0.06;
+        cup.rotation.z = -Math.sin(t * 8) * 0.08;
+      },
+    };
+  }
+  const consumeRig = new THREE.Group();
+  viewCam.add(consumeRig);
+  consumeRig.visible = false;
+  const useRight = viewArm(consumeRig),
+    useLeft = viewArm(consumeRig);
+  function beginUse(id) {
+    const item = goods[id];
+    if (state !== 'play' || useAction || !item?.model || wallet.stock[id] === 0 || P.hp >= 100) return;
+    wallet.stock[id]--;
+    useAction = { item, id, elapsed: 0, pulse: -1 };
+    held = pendingShot = false;
+    setZoom(false);
+    consumeRig.visible = true;
+    consumeRig.add(item.model.root);
+    saveWallet();
+    poseUse(0);
+    hud();
+  }
+  function poseUse(t) {
+    const { item, id } = useAction,
+      bite = id === 'meal',
+      lift = Math.sin(Math.PI * t) ** 0.6;
+    const wobble = Math.sin(t * Math.PI * (bite ? 8 : 5)) * lift;
+    consumeRig.position.set(0.019, -0.35 + 0.2 * lift, -0.55 + 0.08 * lift);
+    item.model.root.position.set(0.016 + 0.012 * wobble, 0.02 * wobble, -0.009);
+    item.model.root.rotation.set(0.13 * lift, wobble * 0.27, 0);
+    item.model.update(t);
+    useRight.wrist.set(0.102, 0.002 + 0.027 * wobble, 0.038);
+    useLeft.wrist.set(-0.095 + (bite ? 0 : 0.033 * wobble), -0.022, 0.054);
+    useRight.elbow.set(0.248, -0.29, 0.22);
+    useLeft.elbow.set(-0.266, -0.29, 0.22);
+    placeArm(useRight, 1, -0.42);
+    placeArm(useLeft, -1, 0.59);
+  }
+  function stopUse() {
+    if (!useAction) return;
+    consumeRig.remove(useAction.item.model.root);
+    consumeRig.visible = false;
+    useAction = null;
+    gun.visible = !zoom;
+    refreshWallet();
+  }
+  function updateUse(dt) {
+    if (!useAction) return;
+    const { item, id } = useAction;
+    useAction.elapsed += dt;
+    const t = Math.min(1, useAction.elapsed / item.seconds),
+      pulse = Math.floor(t * (id === 'meal' ? 4 : 3));
+    if (pulse > useAction.pulse && t > 0.22 && t < 0.91) {
+      useAction.pulse = pulse;
+      snd(0.065, 0.075, id === 'meal' ? 750 : 1800);
+    }
+    poseUse(t);
+    if (t >= 1) {
+      P.hp = Math.min(100, P.hp + item.heal);
+      stopUse();
+      hud();
+    }
   }
   function renderGame() {
     ren.render(scene, cam);
@@ -1124,7 +1444,7 @@ SOFTWARE.
   ray.firstHitOnly = true;
   function hud() {
     const w = W[cur];
-    $('wn').textContent = w.n + ' · ' + w.t;
+    $('wn').textContent = useAction ? useAction.item.name + ' kullanılıyor…' : w.n + ' · ' + w.t;
     $('am').textContent = rel > 0 ? 'Dolduruluyor' : w.ammo + ' / ' + w.mag;
     $('hpn').textContent = Math.max(0, Math.ceil(P.hp));
     $('hpb').style.width = Math.max(0, P.hp) + '%';
@@ -1235,6 +1555,8 @@ SOFTWARE.
       b.g.visible = false;
       b.rt = 4;
       kills++;
+      wallet.cash += 150;
+      saveWallet();
       hud();
     }
   }
@@ -1254,6 +1576,8 @@ SOFTWARE.
   }
   function die() {
     state = 'dead';
+    stopUse();
+    queuedItem = null;
     clearInput();
     stopPointerLock();
     $('mt').textContent = 'Elendin';
@@ -1523,6 +1847,7 @@ SOFTWARE.
       });
       sun.shadow.camera.updateProjectionMatrix();
       prepRifles(r.scene);
+      makeShop();
       for (let i = 0; i < RIVALS; i++) bots.push(mkBot(i));
       pick(0);
       reset();
@@ -1615,7 +1940,8 @@ SOFTWARE.
     updateUI();
   }
   function updateUI() {
-    $('menu').hidden = state === 'play' || state === 'inv';
+    $('menu').hidden = state === 'play' || state === 'inv' || state === 'shop';
+    $('shop').hidden = state !== 'shop';
     $('inv').hidden = state !== 'inv';
     $('hud').hidden = state !== 'play';
     $('touch').hidden = state !== 'play' || mode !== 'touch';
@@ -1654,6 +1980,11 @@ SOFTWARE.
   function enterGame() {
     if (state === 'dead') reset();
     state = 'play';
+    if (queuedItem) {
+      const id = queuedItem;
+      queuedItem = null;
+      beginUse(id);
+    }
     lastMouse = null;
     updateUI();
     lastFrame = 0;
@@ -1688,7 +2019,7 @@ SOFTWARE.
       enterGame();
       return;
     }
-    if (document.pointerLockElement === cv && state === 'inv') {
+    if (document.pointerLockElement === cv && (state === 'inv' || state === 'shop')) {
       relockOnUnlock = true;
       return;
     }
@@ -1717,7 +2048,7 @@ SOFTWARE.
   mouse.addEventListener('unlock', () => {
     if (relockOnUnlock) {
       relockOnUnlock = false;
-      if (state === 'inv') start();
+      if (state === 'inv' || state === 'shop') start();
       return;
     }
     if (mode === 'mouse' && !unlockedMouse) pauseGame();
@@ -1757,6 +2088,22 @@ SOFTWARE.
   $('bag').onclick = openInventory;
   $('pause').onclick = pauseGame;
 
+  function openShop() {
+    if (state !== 'play') return;
+    state = 'shop';
+    queuedItem = null;
+    clearInput();
+    stopPointerLock();
+    refreshWallet();
+    sayShop(
+      P.hp >= 100 ? 'Canın doluyken ürün kullanamazsın.' : 'Ürünleri şimdi kullan veya çantanda sakla.',
+    );
+    updateUI();
+    $('closeShop').focus({ preventScroll: true });
+  }
+  $('openShop').onclick = openShop;
+  $('closeShop').onclick = () => start({ keepUnlocked: unlockedMouse });
+
   const keys = new Set([
     'KeyW',
     'KeyA',
@@ -1769,6 +2116,9 @@ SOFTWARE.
     'KeyE',
     'KeyF',
     'KeyM',
+    'KeyB',
+    'Digit6',
+    'Digit7',
     'ArrowLeft',
     'ArrowRight',
     'ArrowUp',
@@ -1780,6 +2130,13 @@ SOFTWARE.
     'Digit5',
   ]);
   addEventListener('keydown', (e) => {
+    if (state === 'shop') {
+      if (!e.repeat && (e.code === 'Escape' || (e.code === 'KeyB' && e.target !== $('promoCode')))) {
+        e.preventDefault();
+        start({ keepUnlocked: unlockedMouse });
+      }
+      return;
+    }
     if (state === 'inv') {
       if (e.code === 'KeyE' && !e.repeat) {
         e.preventDefault();
@@ -1797,6 +2154,9 @@ SOFTWARE.
     if (e.repeat) return;
     if (e.code === 'Escape') pauseGame();
     if (e.code === 'KeyE') openInventory();
+    if (e.code === 'KeyB') openShop();
+    if (e.code === 'Digit6') beginUse('bandage');
+    if (e.code === 'Digit7') beginUse('meal');
     if (e.code === 'KeyF') requestGameFullscreen();
     if (e.code === 'KeyM' && mode === 'mouse' && !unlockedMouse) {
       clearInput();
@@ -1821,9 +2181,9 @@ SOFTWARE.
   });
 
   function setZoom(v) {
-    zoom = Boolean(v && W[cur].zoom);
+    zoom = Boolean(v && W[cur].zoom && !useAction);
     $('scope').hidden = !zoom;
-    gun.visible = !zoom;
+    gun.visible = !zoom && !useAction;
     mouse.pointerSpeed = zoom ? 0.34 : 1;
     $('aim').setAttribute('aria-pressed', String(zoom));
   }
@@ -1833,6 +2193,7 @@ SOFTWARE.
     cam.rotation.x = THREE.MathUtils.clamp(cam.rotation.x - dy * s, -1.45, 1.45);
   }
   function startFire() {
+    if (useAction) return;
     held = true;
     pendingShot = rel <= 0 && W[cur].ammo > 0;
   }
@@ -2034,10 +2395,17 @@ SOFTWARE.
         }
       }
       poseGun(dt, Math.min(1, Math.hypot(f, s)), running);
-      if ((pendingShot || (held && W[cur].auto)) && cd <= 0 && rel <= 0 && W[cur].ammo > 0) {
+      if (
+        !useAction &&
+        (pendingShot || (held && W[cur].auto)) &&
+        cd <= 0 &&
+        rel <= 0 &&
+        W[cur].ammo > 0
+      ) {
         pendingShot = false;
         shoot();
       }
+      updateUse(dt);
       updateBots(dt);
     }
     renderGame();
