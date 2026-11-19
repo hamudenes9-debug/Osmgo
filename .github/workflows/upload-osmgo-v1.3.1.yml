@@ -1,0 +1,20 @@
+name: Attach v1.3.1 HTML
+on:
+  push:
+    branches: [arena/7a0ab0e8-osmgo]
+    paths: [.github/workflows/upload-osmgo-v1.3.1.yml]
+permissions:
+  contents: write
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Attach the published version's exact HTML
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          sha=$(gh release view v1.3.1 --repo "$GITHUB_REPOSITORY" --json targetCommitish --jq .targetCommitish)
+          gh api --header 'Accept: application/vnd.github.raw+json' "repos/$GITHUB_REPOSITORY/contents/index.html?ref=$sha" > index.html
+          test "$(head -n 1 index.html)" = '<!doctype html>'
+          gh release upload v1.3.1 index.html --repo "$GITHUB_REPOSITORY"
