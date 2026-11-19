@@ -10,7 +10,7 @@ Oyun ve kaynak kodu tek dosyadadır: [`index.html`](index.html). Three.js, harit
 | Koş / zıpla | Shift / Boşluk | Koş tuşunu basılı tut / Zıpla |
 | Ateş / şarjör | Sol tık / R | Ateş / Şarjör |
 | Dürbün (Hayalet) | Sağ tık | Dürbün |
-| Envanter / silah seçimi | E / 1–5 | Envanter / silah kartı |
+| Envanter / silah seçimi | E / 1–5 ve 8 | Envanter / silah kartı |
 | Duraklat | Esc | Duraklat düğmesi |
 | Tam ekran | Başla / F / Tam ekran düğmesi | Başla / Tam ekran düğmesi |
 
@@ -26,6 +26,7 @@ Oyun tek kişiliktir. Takım arkadaşı yoktur; rakip askerlerin kask ve teçhiz
 
 ## Oyun içi mağaza
 
-- Masaüstünde **B**, mobilde **Mağaza** düğmesiyle açılır. Başlangıçta 300 oyun parası verilir; elenen her rakip +150 kazandırır.
-- **Bandaj** 120 oyun parası karşılığında +30 can, **McDonald’s Menü** 280 oyun parası karşılığında +60 can verir. Satın alınan ürünler çantada saklanır. Canın eksikken mağazadan **Kullan**'a basabilir veya **6** (bandaj) / **7** (menü) tuşlarını kullanabilirsin. Can, ürünün birinci şahıs animasyonu tamamlandığında yenilenir.
-- Promosyon kutusuna **`OSMAN100`** yazmak 100.000 oyun parası ekler. Kod tarayıcı kaydı başına bir kez kullanılabilir. Tarayıcı yerel depolamaya izin verirse bakiye, ürünler ve kodun kullanım durumu saklanır. Gerçek para kullanılmaz.
+- Masaüstünde **B**, mobilde **Mağaza** düğmesiyle açılır. Başlangıç bakiyesi **$300**; elenen her rakip **+$150** kazandırır. Tutarlar oyun içi ABD dolarıdır, gerçek ödeme yapılmaz.
+- **Bandaj** **$120** karşılığında +30 can, **McDonald’s Menü** **$280** karşılığında +60 can verir. Satın alınan ürünler çantada saklanır. Canın eksikken mağazadan **Kullan**'a basabilir veya **6** (bandaj) / **7** (menü) tuşlarını kullanabilirsin. Can, ürünün birinci şahıs animasyonu tamamlandığında yenilenir.
+- Promosyon kutusuna **`OSMAN100`** yazmak **$100.000** ekler. Kod tarayıcı kaydı başına bir kez kullanılabilir. Tarayıcı yerel depolamaya izin verirse bakiye, ürünler ve kodun kullanım durumu saklanır. Gerçek para kullanılmaz.
+- **M4A4 ($1.000):** Yeni 3B otomatik tüfek mağazada bir kez satın alınır ve kalıcı olarak açılır. Mağazada **Kuşan**, silah envanteri veya **8** tuşuyla seçebilirsin. M4A1 envanterde kalır.

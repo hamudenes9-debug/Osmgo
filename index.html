@@ -32,7 +32,7 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}
 .credit{font-size:.71rem;color:#c7bea7;margin:12px 0 0}
 #row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(108px,100%),1fr));gap:8px;margin:14px 0}
 .card{padding:9px;border:1px solid var(--line);border-radius:6px;background:#ffffff09;color:var(--ink);text-align:left;display:block;width:100%}
-.card.sel{border-color:var(--amber);background:#f4bf6821}.card b{display:block}.card i{font-style:normal;color:var(--amber);font-size:.72rem}.st{font-size:.72rem;color:#e0d6bf}
+.card:disabled{opacity:.58;cursor:not-allowed}.card.sel{border-color:var(--amber);background:#f4bf6821}.card b{display:block}.card i{font-style:normal;color:var(--amber);font-size:.72rem}.st{font-size:.72rem;color:#e0d6bf}
 .bar{height:5px;background:#ffffff26;margin:3px 0 6px}.bar span{display:block;height:100%;background:var(--amber)}
 #hud,#touch{pointer-events:none}
 #cross{position:absolute;left:50%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%);color:#fff}
@@ -66,7 +66,7 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}
 @media (max-width:375px){#touchActions{gap:5px;grid-template-columns:repeat(3,minmax(44px,50px))}.touch-btn{font-size:.61rem}}
 #cashHUD{margin-right:7px;color:var(--amber);font-weight:750}#kills{white-space:nowrap}
 #shopPanel{max-width:670px}.shopHead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}.shopBalance{color:var(--amber);font-weight:750;font-variant-numeric:tabular-nums}
-#shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:10px;margin:12px 0}
+#shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(185px,100%),1fr));gap:10px;margin:12px 0}
 .shelf-card{min-width:0;background:#202720;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .shelf-card canvas{display:block;width:100%;height:102px;object-fit:contain;animation:displayBob 4s ease-in-out infinite}.shelf-card:nth-child(2) canvas{animation-delay:-1.5s}
 @keyframes displayBob{50%{transform:translateY(4px) rotate(2deg)}}@media(prefers-reduced-motion:reduce){.shelf-card canvas{animation:none}}
@@ -86,9 +86,9 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}
     <div id="hurt"></div><div id="scope" hidden></div><div id="cross"></div>
     <div class="chip" id="hp">Can <span id="hpn">100</span><div class="bar"><span id="hpb" style="width:100%"></span></div></div>
     <div class="chip" id="wp"><small id="wn"></small><b id="am"></b></div>
-    <div class="chip" id="kills"><span id="cashHUD" aria-label="Oyun parası">◈ <span id="cash">300</span></span>Elenen: <b id="kn">0</b></div>
+    <div class="chip" id="kills"><span id="cashHUD" aria-label="Bakiye"> <span id="cash">$300</span></span>Elenen: <b id="kn">0</b></div>
     <div class="chip" id="viewMode" hidden>Kilitsiz fare · İmleci oyun alanında hareket ettir veya yön tuşlarını kullan.</div>
-    <div id="tip">WASD hareket · Shift koş · Boşluk zıpla · R şarjör · E envanter · 1–5 silah · F tam ekran · B mağaza · M kilitsiz fare</div>
+    <div id="tip">WASD hareket · Shift koş · Boşluk zıpla · R şarjör · E envanter · 1–5 / 8 silah · F tam ekran · B mağaza · M kilitsiz fare</div>
   </div>
   <div id="touch" hidden>
     <div id="look" aria-label="Dokunmatik bakış alanı"></div>
@@ -108,7 +108,7 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}
       <p class="eyebrow">SAHA GÖREVİ / 01</p>
       <h1 id="mt">Çöl Operasyonu</h1><p id="ms">Açık haritada tek başına hayatta kal.</p>
       <div class="instructions">
-        <span class="desktop-help">WASD hareket · Fare bakış · Shift koş · Boşluk zıpla · Sol tık ateş · Sağ tık dürbün (Hayalet) · R şarjör · 1–5 silah · E envanter · B mağaza · F tam ekran</span>
+        <span class="desktop-help">WASD hareket · Fare bakış · Shift koş · Boşluk zıpla · Sol tık ateş · Sağ tık dürbün (Hayalet) · R şarjör · 1–5 / 8 silah · E envanter · B mağaza · F tam ekran</span>
         <span class="touch-help">Sol çubukla hareket et, sağ alanı sürükleyerek bak. Ekran tuşlarıyla ateş et, koş, zıpla ve şarjör değiştir.</span>
       </div>
       <div class="actions"><button class="primary" id="go" type="button" disabled>Yükleniyor…</button><button class="secondary" id="mode" type="button">Dokunmatik kontroller</button><button class="secondary" id="fullscreen" type="button">Tam ekran</button></div>
@@ -125,7 +125,7 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}
   <section class="ov" id="shop" aria-labelledby="shop-title" hidden>
     <div class="panel" id="shopPanel">
       <p class="eyebrow">SAHA TEDARİĞİ</p>
-      <div class="shopHead"><h2 id="shop-title">Mağaza</h2><span class="shopBalance">◈ <span id="shopCash">300</span> oyun parası</span></div>
+      <div class="shopHead"><h2 id="shop-title">Mağaza</h2><span class="shopBalance"><span id="shopCash">$300</span> oyun bakiyesi</span></div>
       <div id="shelf"></div>
       <form id="promo"><label>Promosyon kodu<input id="promoCode" placeholder="Kodu yaz" maxlength="32" autocapitalize="characters" autocomplete="off" spellcheck="false"></label><button class="secondary" type="submit">Kodu kullan</button></form>
       <p id="shopStatus" role="status"></p>
@@ -736,7 +736,22 @@ SOFTWARE.
       w: 0.07,
       zoom: true,
     },
+    {
+      n: 'M4A4',
+      t: 'Hücum tüfeği',
+      dmg: 24,
+      rate: 11,
+      mag: 30,
+      rl: 1.9,
+      sp: 0.017,
+      pel: 1,
+      auto: true,
+      len: 0.79,
+      unlock: 'm4a4',
+      shortcut: '8',
+    },
   ];
+  const M4A4 = W.length - 1;
   W.forEach((w) => (w.ammo = w.mag));
   // Simple shapes are batched by moving body part, and both teams reuse their meshes' buffers.
   const shape = {
@@ -871,19 +886,27 @@ SOFTWARE.
   const goods = {
     bandage: { name: 'Bandaj', price: 120, heal: 30, seconds: 1.55, key: '6', build: bandageModel },
     meal: { name: 'McDonald’s Menü', price: 280, heal: 60, seconds: 2.25, key: '7', build: mealModel },
+    m4a4: { name: 'M4A4', price: 1000, weapon: M4A4, key: '8', build: m4a4Preview },
   };
   const walletKey = 'osmgo.shop.v1';
   const numberFormat = new Intl.NumberFormat('tr-TR');
+  const usd = (value) => '$' + numberFormat.format(value);
   const safeNumber = (value, fallback = 0) =>
     Number.isSafeInteger(value) && value >= 0 ? value : fallback;
   function readWallet() {
-    const initial = { cash: 300, stock: { bandage: 0, meal: 0 }, redeemed: false };
+    const initial = {
+      cash: 300,
+      stock: { bandage: 0, meal: 0 },
+      owned: { m4a4: false },
+      redeemed: false,
+    };
     try {
       const data = JSON.parse(localStorage.getItem(walletKey));
       if (!data) return initial;
       return {
         cash: safeNumber(data.cash, 300),
         stock: { bandage: safeNumber(data.stock?.bandage), meal: safeNumber(data.stock?.meal) },
+        owned: { m4a4: data.owned?.m4a4 === true },
         redeemed: data.redeemed === true,
       };
     } catch {
@@ -895,12 +918,22 @@ SOFTWARE.
   let useAction = null,
     queuedItem = null;
   function refreshWallet() {
-    const cash = numberFormat.format(wallet.cash);
-    $('cash').textContent = $('shopCash').textContent = cash;
+    $('cash').textContent = $('shopCash').textContent = usd(wallet.cash);
     for (const [id, { buy, use, stock }] of cards) {
-      stock.textContent = numberFormat.format(wallet.stock[id]);
-      buy.disabled = wallet.cash < goods[id].price;
-      use.disabled = wallet.stock[id] === 0 || P.hp >= 100 || Boolean(useAction);
+      const item = goods[id];
+      if (item.weapon !== undefined) {
+        const owned = wallet.owned[id];
+        stock.textContent = owned ? 'Satın alındı' : 'Kilitli';
+        buy.disabled = owned || wallet.cash < item.price;
+        buy.textContent = owned ? 'Satın alındı' : 'Al · ' + usd(item.price);
+        use.disabled = !owned || Boolean(useAction);
+        row.children[item.weapon].disabled = !owned;
+        row.children[item.weapon].querySelector('.unlock-note').hidden = owned;
+      } else {
+        stock.textContent = numberFormat.format(wallet.stock[id]);
+        buy.disabled = wallet.cash < item.price;
+        use.disabled = wallet.stock[id] === 0 || P.hp >= 100 || Boolean(useAction);
+      }
     }
   }
   function saveWallet() {
@@ -916,11 +949,21 @@ SOFTWARE.
   }
   function buyItem(id) {
     const item = goods[id];
-    if (state !== 'shop' || !item || wallet.cash < item.price) return;
+    if (
+      state !== 'shop' ||
+      !item ||
+      wallet.cash < item.price ||
+      (item.weapon !== undefined && wallet.owned[id])
+    )
+      return;
     wallet.cash -= item.price;
-    wallet.stock[id]++;
+    if (item.weapon !== undefined) wallet.owned[id] = true;
+    else wallet.stock[id]++;
     saveWallet();
-    sayShop(item.name + ' çantaya eklendi.');
+    sayShop(
+      item.name +
+        (item.weapon !== undefined ? ' envantere eklendi. Kuşan ya da 8’e bas.' : ' çantaya eklendi.'),
+    );
   }
   $('promo').addEventListener('submit', (event) => {
     event.preventDefault();
@@ -938,7 +981,7 @@ SOFTWARE.
     wallet.cash += 100000;
     field.value = '';
     saveWallet();
-    sayShop('+100.000 oyun parası hesabına eklendi.');
+    sayShop('+' + usd(100000) + ' bakiyene eklendi.');
   });
   function makeShop() {
     const previews = new THREE.Scene(),
@@ -957,7 +1000,11 @@ SOFTWARE.
       for (const [id, item] of Object.entries(goods)) {
         const card = document.createElement('article');
         card.className = 'shelf-card';
-        card.innerHTML = `<canvas width="${size}" height="${size}" aria-hidden="true"></canvas><div class="item-info"><h3>${item.name}</h3><p>+${item.heal} can · Çantada <strong></strong></p><div class="actions"><button class="primary" type="button">Al · ${item.price}</button><button class="secondary" type="button">Kullan <span class="desktop-help">· ${item.key}</span></button></div></div>`;
+        const weapon = item.weapon !== undefined;
+        const detail = weapon
+          ? 'Otomatik · 30 mermi · <strong></strong>'
+          : `+${item.heal} can · Çantada <strong></strong>`;
+        card.innerHTML = `<canvas width="${size}" height="${size}" aria-hidden="true"></canvas><div class="item-info"><h3>${item.name}</h3><p>${detail}</p><div class="actions"><button class="primary" type="button">Al · ${usd(item.price)}</button><button class="secondary" type="button">${weapon ? 'Kuşan' : 'Kullan'} <span class="desktop-help">· ${item.key}</span></button></div></div>`;
         $('shelf').appendChild(card);
         const [buy, use] = card.querySelectorAll('button'),
           stock = card.querySelector('strong');
@@ -970,7 +1017,7 @@ SOFTWARE.
         };
         try {
           const model = (item.model = item.build());
-          model.update(0);
+          model.update?.(0);
           previews.add(model.root);
           const pixels = new Uint8Array(size * size * 4);
           ren.setRenderTarget(target);
@@ -998,6 +1045,68 @@ SOFTWARE.
   }
   function meshKit(pieces) {
     return new THREE.Mesh(kit(pieces), fabric);
+  }
+  // The in-hand model and shop preview share the same low-poly geometry.
+  function m4a4Mesh() {
+    const body = 0x424a46,
+      steel = 0x303938,
+      rail = 0x68746b,
+      grip = 0x252c28,
+      accent = 0x9a906d;
+    return meshKit([
+      ['box', body, 0, 0.015, -0.073, 0.082, 0.092, 0.25],
+      ['box', grip, 0, -0.037, -0.011, 0.071, 0.049, 0.13],
+      ['box', steel, 0, 0.064, -0.213, 0.059, 0.083, 0.235],
+      ['box', rail, 0, 0.107, -0.184, 0.059, 0.016, 0.313],
+      ...Array.from({ length: 13 }, (_, i) => [
+        'box',
+        steel,
+        0,
+        0.119,
+        0.005 - i * 0.023,
+        0.071,
+        0.006,
+        0.012,
+      ]),
+      ...[-1, 1].flatMap((side) =>
+        Array.from({ length: 7 }, (_, i) => [
+          'box',
+          body,
+          side * 0.033,
+          0.06,
+          -0.138 - i * 0.029,
+          0.018,
+          0.012,
+          0.017,
+        ]),
+      ),
+      ['tube', grip, 0, 0.062, -0.379, 0.032, 0.137, 0.032, Math.PI / 2],
+      ['tube', steel, 0, 0.062, -0.453, 0.047, 0.056, 0.047, Math.PI / 2],
+      ['box', grip, 0, 0.143, -0.29, 0.048, 0.073, 0.024],
+      ['box', grip, 0, 0.145, 0.019, 0.055, 0.065, 0.035],
+      ['box', rail, 0.043, 0.034, -0.051, 0.009, 0.031, 0.078],
+      ['box', accent, 0.045, 0.018, -0.046, 0.008, 0.012, 0.064],
+      ['box', grip, 0, -0.066, 0.048, 0.059, 0.116, 0.066, 0.29],
+      ['box', steel, 0, -0.11, -0.09, 0.064, 0.131, 0.079, -0.15],
+      ['box', body, 0, -0.174, -0.101, 0.066, 0.029, 0.078, -0.15],
+      ['box', grip, 0, -0.19, -0.102, 0.073, 0.013, 0.088, -0.15],
+      ['box', grip, 0, -0.075, -0.023, 0.046, 0.013, 0.055],
+      ['box', grip, 0, -0.055, -0.049, 0.046, 0.049, 0.012],
+      ['tube', steel, 0, 0.016, 0.165, 0.051, 0.209, 0.051, Math.PI / 2],
+      ['box', body, 0, 0, 0.218, 0.089, 0.079, 0.144],
+      ['box', grip, 0, -0.042, 0.253, 0.078, 0.087, 0.076, -0.31],
+      ['box', grip, 0, -0.021, 0.288, 0.092, 0.143, 0.024],
+    ]);
+  }
+  function m4a4Preview() {
+    const geometry = (W[M4A4].holder ??= m4a4Mesh());
+    const root = new THREE.Group();
+    const model = geometry.clone();
+    model.position.z = 0.09;
+    root.rotation.set(-0.055, 0.95, -0.09);
+    root.scale.setScalar(0.65);
+    root.add(model);
+    return { root };
   }
   function bandageModel() {
     const root = new THREE.Group(),
@@ -1180,6 +1289,7 @@ SOFTWARE.
   function buildGun() {
     for (const child of [...gun.children]) if (child !== handRig) gun.remove(child);
     const w = W[cur];
+    if (cur === M4A4) w.holder ??= m4a4Mesh();
     if (w.holder) {
       gun.add(w.holder);
       return;
@@ -1316,11 +1426,19 @@ SOFTWARE.
     const c = document.createElement('button');
     c.type = 'button';
     c.className = 'card';
-    c.innerHTML = `<i>${i + 1}</i><b>${w.n}</b><div class="st">${w.t}</div><div class="st">Hasar</div><div class="bar"><span style="width:${Math.min(100, w.dmg * w.pel * (w.pel > 1 ? 0.5 : 1))}%"></span></div><div class="st">Ateş hızı</div><div class="bar"><span style="width:${(w.rate / 14) * 100}%"></span></div><div class="st">Şarjör: ${w.mag}</div>`;
+    c.innerHTML = `<i>${w.shortcut ?? i + 1}</i><b>${w.n}</b><div class="st">${w.t}</div><div class="st">Hasar</div><div class="bar"><span style="width:${Math.min(100, w.dmg * w.pel * (w.pel > 1 ? 0.5 : 1))}%"></span></div><div class="st">Ateş hızı</div><div class="bar"><span style="width:${(w.rate / 14) * 100}%"></span></div><div class="st">Şarjör: ${w.mag}</div>`;
+    if (w.unlock) {
+      const note = document.createElement('div');
+      note.className = 'st unlock-note';
+      note.textContent = 'Mağazada ' + usd(goods[w.unlock].price);
+      c.appendChild(note);
+      c.disabled = !wallet.owned[w.unlock];
+    }
     c.onclick = () => pick(i);
     row.appendChild(c);
   });
   function pick(i) {
+    if (!W[i] || (W[i].unlock && !wallet.owned[W[i].unlock])) return;
     if (i !== cur || gun.children.length === 1) {
       cur = i;
       rel = 0;
@@ -1779,6 +1897,7 @@ SOFTWARE.
     stepAmount = stepPhase = 0;
     poseGun();
     setZoom(false);
+    const M4A4 = W.length - 1;
     W.forEach((w) => (w.ammo = w.mag));
     for (const b of bots) {
       b.alive = false;
@@ -1983,7 +2102,8 @@ SOFTWARE.
     if (queuedItem) {
       const id = queuedItem;
       queuedItem = null;
-      beginUse(id);
+      if (goods[id].weapon !== undefined) pick(goods[id].weapon);
+      else beginUse(id);
     }
     lastMouse = null;
     updateUI();
@@ -2119,6 +2239,7 @@ SOFTWARE.
     'KeyB',
     'Digit6',
     'Digit7',
+    'Digit8',
     'ArrowLeft',
     'ArrowRight',
     'ArrowUp',
@@ -2138,6 +2259,10 @@ SOFTWARE.
       return;
     }
     if (state === 'inv') {
+      if (e.code === 'Digit8' && !e.repeat) {
+        e.preventDefault();
+        pick(M4A4);
+      }
       if (e.code === 'KeyE' && !e.repeat) {
         e.preventDefault();
         start({ keepUnlocked: unlockedMouse });
@@ -2157,6 +2282,7 @@ SOFTWARE.
     if (e.code === 'KeyB') openShop();
     if (e.code === 'Digit6') beginUse('bandage');
     if (e.code === 'Digit7') beginUse('meal');
+    if (e.code === 'Digit8') pick(M4A4);
     if (e.code === 'KeyF') requestGameFullscreen();
     if (e.code === 'KeyM' && mode === 'mouse' && !unlockedMouse) {
       clearInput();
