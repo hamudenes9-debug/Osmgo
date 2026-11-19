@@ -6,20 +6,20 @@ Oyun ve kaynak kodu tek dosyadadır: [`index.html`](index.html). Three.js, harit
 
 | İşlem | Fare ve klavye | Dokunmatik |
 | --- | --- | --- |
-| Hareket / bakış | WASD / fare (Pointer Lock) | Sol joystick / sağ alanı sürükle |
+| Hareket / bakış | WASD / fare (Pointer Lock) veya yön tuşları | Sol joystick / sağ alanı sürükle |
 | Koş / zıpla | Shift / Boşluk | Koş tuşunu basılı tut / Zıpla |
 | Ateş / şarjör | Sol tık / R | Ateş / Şarjör |
 | Dürbün (Hayalet) | Sağ tık | Dürbün |
 | Envanter / silah seçimi | E / 1–5 | Envanter / silah kartı |
 | Duraklat | Esc | Duraklat düğmesi |
+| Tam ekran | Başla / F / Tam ekran düğmesi | Başla / Tam ekran düğmesi |
 
 - Dar ekranlarda ve dokunmatik cihazlarda dokunmatik düzen otomatik seçilir. Hibrit cihazlarda menüden kontrol türünü değiştirebilirsiniz.
-- Önizleme veya tarayıcı fare kilidini engellerse ayrı sekmede açın ya da **Fare kilidi olmadan oyna** seçeneğini kullanın. Bu modda kamera, fare tuvalin üzerindeyken döner.
+- **Başla** tarayıcıdan tam ekran ister. Tarayıcı, cihaz veya önizleme buna izin vermezse oyun pencere içinde devam eder. Tarayıcılar sayfa açılır açılmaz kendiliğinden tam ekrana geçilmesini engeller.
+- Fare kilidi reddedilirse masaüstünde otomatik olarak kilitsiz kamera kullanılır. İmleci oyun alanında hareket ettirin veya yön tuşlarını kullanın; oyun web kamerası izni istemez. Fare kilidi açıkken kamera tepki vermezse **M** ile kilitsiz moda geçebilirsiniz.
 - Dokunmatik düzen dikey ve yatay oynanabilir; dikeyde daha geniş görüş için yatay çevirme önerisi gösterilir.
 - Mobil grafik profili piksel oranını 1,15 ile, çizim arabelleğini yaklaşık 1 milyon pikselle ve görüş mesafesini 95 birimle sınırlar. Gölge haritaları kapalıdır; mobilde açılan WebGL bağlamında kenar yumuşatma da kapalıdır. Masaüstünde statik, 1024 × 1024 harita gölgeleri kullanılır. Donanım ve tarayıcıya göre performans değişir.
 
 Harita ve silah modelleri paylaşılan HTML’den alınmıştır. Silah modelleri: **Rifles – LeyamaTk**. Gömülü motor ve yardımcı kütüphanelerin lisansları HTML dosyasındadır.
 
-## Takım modu
-
-İki yapay zekâ takım arkadaşı oyuncunun yakınında başlar, peşinden gelir ve görüş alanına giren rakiplere ateş eder. Mavi artı işareti ve `Dost` sayacı takım arkadaşlarını tanımlar. Dost ateşi hasar vermez; sayaç yalnızca oyuncunun elediği rakipleri sayar. Askerlerin teçhizatı ve birinci şahıs el/kol animasyonları HTML içinde üretilir, ek dosya indirmez.
+Oyun tek kişiliktir. Takım arkadaşı yoktur; rakip askerlerin kask ve teçhizatı, ayrıca birinci şahıs el ve kol modelleri korunur.

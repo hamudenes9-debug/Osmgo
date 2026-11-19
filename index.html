@@ -23,7 +23,7 @@ button:focus-visible{outline:2px solid #fff;outline-offset:3px}
   background:#171b16f0;border-radius:10px;box-shadow:0 18px 75px #0c100b9c}
 .eyebrow{margin:0 0 8px;color:var(--amber);font-size:.72rem;font-weight:800;letter-spacing:.28em}
 h1,h2{margin:0;line-height:1.03;letter-spacing:-.04em}h1{font-size:clamp(2rem,7vw,4.2rem)}h2{font-size:clamp(1.65rem,4vw,2.6rem)}
-p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}#notice{color:var(--amber);font-size:.87rem}
+p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}
 .instructions{margin:18px 0;padding:12px 0;border-block:1px solid var(--line);font-size:.86rem;color:#e5ddc9}
 .actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
 .primary,.secondary{min-height:44px;padding:8px 16px;border:1px solid var(--line);border-radius:6px;font-weight:700}
@@ -41,7 +41,7 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}#notice{color:var(--amber);fon
 .chip{position:absolute;border:1px solid var(--line);background:var(--glass);border-radius:7px;padding:8px 12px;font-size:.82rem;font-variant-numeric:tabular-nums}
 #hp{left:var(--left);bottom:var(--bottom);width:clamp(100px,19vw,240px);font-weight:750}#hp .bar{margin:5px 0 0}#hp .bar span{background:var(--red)}
 #wp{right:var(--right);bottom:var(--bottom);text-align:right}#wp b{color:var(--amber);font-size:clamp(1.05rem,3.1vw,1.75rem)}#wp small{display:block;font-size:.72rem}
-#kills{right:var(--right);top:var(--top);display:flex;gap:8px;align-items:center}#squad{color:#86edfb;font-weight:750;border-right:1px solid var(--line);padding-right:8px}#tip{position:absolute;left:50%;bottom:var(--bottom);transform:translateX(-50%);font-size:.75rem;text-shadow:0 1px 4px #000;background:#121710a1;padding:4px 8px;border-radius:4px;text-align:center}
+#kills{right:var(--right);top:var(--top)}#viewMode{left:var(--left);top:var(--top);max-width:60%;color:#f7d69d}#tip{position:absolute;left:50%;bottom:var(--bottom);transform:translateX(-50%);font-size:.75rem;text-shadow:0 1px 4px #000;background:#121710a1;padding:4px 8px;border-radius:4px;text-align:center}
 #hurt{box-shadow:inset 0 0 100px 22px #dc4130a8;opacity:0;transition:opacity .2s}
 #scope{background:radial-gradient(circle at center,transparent 27.7vmin,#d7caa6 28vmin,#10110e 28.5vmin,#000 29vmin)}
 #look{position:absolute;inset:0 0 0 42%;pointer-events:auto;touch-action:none}
@@ -73,8 +73,9 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}#notice{color:var(--amber);fon
     <div id="hurt"></div><div id="scope" hidden></div><div id="cross"></div>
     <div class="chip" id="hp">Can <span id="hpn">100</span><div class="bar"><span id="hpb" style="width:100%"></span></div></div>
     <div class="chip" id="wp"><small id="wn"></small><b id="am"></b></div>
-    <div class="chip" id="kills"><span id="squad">◆ Dost <b id="an">2</b>/2</span><span>Elenen: <b id="kn">0</b></span></div>
-    <div id="tip">WASD hareket · Shift koş · Boşluk zıpla · R şarjör · E envanter · 1–5 silah</div>
+    <div class="chip" id="kills">Elenen: <b id="kn">0</b></div>
+    <div class="chip" id="viewMode" hidden>Kilitsiz fare · İmleci oyun alanında hareket ettir veya yön tuşlarını kullan.</div>
+    <div id="tip">WASD hareket · Shift koş · Boşluk zıpla · R şarjör · E envanter · 1–5 silah · F tam ekran · M kilitsiz fare</div>
   </div>
   <div id="touch" hidden>
     <div id="look" aria-label="Dokunmatik bakış alanı"></div>
@@ -92,13 +93,12 @@ p{margin:10px 0;line-height:1.4}#ms{color:#e4d9bf}#notice{color:var(--amber);fon
   <section class="ov" id="menu" aria-labelledby="mt">
     <div class="panel">
       <p class="eyebrow">SAHA GÖREVİ / 01</p>
-      <h1 id="mt">Çöl Operasyonu</h1><p id="ms">İki mavi işaretli takım arkadaşınla açık haritada hayatta kal. Dost ateşi kapalı.</p>
+      <h1 id="mt">Çöl Operasyonu</h1><p id="ms">Açık haritada tek başına hayatta kal.</p>
       <div class="instructions">
-        <span class="desktop-help">WASD hareket · Fare bakış · Shift koş · Boşluk zıpla · Sol tık ateş · Sağ tık dürbün (Hayalet) · R şarjör · 1–5 silah · E envanter</span>
+        <span class="desktop-help">WASD hareket · Fare bakış · Shift koş · Boşluk zıpla · Sol tık ateş · Sağ tık dürbün (Hayalet) · R şarjör · 1–5 silah · E envanter · F tam ekran</span>
         <span class="touch-help">Sol çubukla hareket et, sağ alanı sürükleyerek bak. Ekran tuşlarıyla ateş et, koş, zıpla ve şarjör değiştir.</span>
       </div>
-      <p id="notice" role="status" hidden></p>
-      <div class="actions"><button class="primary" id="go" type="button" disabled>Yükleniyor…</button><button class="secondary" id="mode" type="button">Dokunmatik kontroller</button><button class="secondary" id="unlocked" type="button" hidden>Fare kilidi olmadan oyna</button></div>
+      <div class="actions"><button class="primary" id="go" type="button" disabled>Yükleniyor…</button><button class="secondary" id="mode" type="button">Dokunmatik kontroller</button><button class="secondary" id="fullscreen" type="button">Tam ekran</button></div>
       <p class="credit">Silah modelleri: Rifles – LeyamaTk</p>
     </div>
   </section>
@@ -1017,18 +1017,15 @@ SOFTWARE.
     });
     hud();
   }
-  // World-space soldiers: two teammates and six opponents, with five solid hit regions each.
-  const FRIEND = 'ally',
-    ENEMY = 'enemy';
+  // All six soldiers are opponents; their moving parts share geometry and material buffers.
   const bots = [];
-  const teamKits = new Map();
-  function soldierGeometry(team) {
-    if (teamKits.has(team)) return teamKits.get(team);
-    const ally = team === FRIEND,
-      cloth = ally ? 0x606c57 : 0x94795d;
-    const dark = ally ? 0x384d46 : 0x592f2b,
-      patch = ally ? 0x52d8e8 : 0xf47351;
-    const camo = ally ? 0x85866c : 0xb59c72,
+  let soldierKit;
+  function soldierGeometry() {
+    if (soldierKit) return soldierKit;
+    const cloth = 0x94795d,
+      dark = 0x592f2b,
+      patch = 0xf47351,
+      camo = 0xb59c72,
       sand = 0x75694f,
       boot = 0x312a23,
       face = 0xac7955;
@@ -1075,38 +1072,12 @@ SOFTWARE.
         ['box', 0x222624, 0, 0.072, -0.065, 0.071, 0.042, 0.123],
       ]),
     };
-    teamKits.set(team, result);
-    return result;
+    soldierKit = result;
+    return soldierKit;
   }
-  const allyTagMaterial = new THREE.SpriteMaterial({
-    map: allyTag(),
-    transparent: true,
-    depthWrite: false,
-    fog: true,
-  });
-  function allyTag() {
-    const c = document.createElement('canvas');
-    c.width = c.height = 32;
-    const ctx = c.getContext('2d');
-    ctx.beginPath();
-    ctx.moveTo(16, 2);
-    ctx.lineTo(30, 16);
-    ctx.lineTo(16, 30);
-    ctx.lineTo(2, 16);
-    ctx.closePath();
-    ctx.fillStyle = '#103b43';
-    ctx.fill();
-    ctx.strokeStyle = '#7af0ff';
-    ctx.lineWidth = 3;
-    ctx.stroke();
-    ctx.fillStyle = '#d8fbff';
-    ctx.fillRect(14, 8, 4, 16);
-    ctx.fillRect(8, 14, 16, 4);
-    return new THREE.CanvasTexture(c);
-  }
-  function mkBot(team, slot) {
+  function mkBot(slot) {
     const g = new THREE.Group(),
-      kit = soldierGeometry(team),
+      kit = soldierGeometry(),
       mesh = (part, x, y, z) => {
         const m = new THREE.Mesh(kit[part], fabric);
         m.position.set(x, y, z);
@@ -1123,15 +1094,8 @@ SOFTWARE.
     }
     const rifle = mesh('weapon', 0.095, 1.31, 0.38),
       parts = [body, head, ...arms, ...legs, rifle];
-    if (team === FRIEND) {
-      const tag = new THREE.Sprite(allyTagMaterial);
-      tag.position.y = 2.2;
-      tag.scale.set(0.34, 0.34, 1);
-      g.add(tag);
-    }
     const b = {
       g,
-      team,
       slot,
       parts,
       arms,
@@ -1165,7 +1129,6 @@ SOFTWARE.
     $('hpn').textContent = Math.max(0, Math.ceil(P.hp));
     $('hpb').style.width = Math.max(0, P.hp) + '%';
     $('kn').textContent = kills;
-    $('an').textContent = bots.filter((b) => b.alive && b.team === FRIEND).length;
   }
   // Reuse short sound buffers and tracer line geometry throughout play.
   let ac;
@@ -1255,25 +1218,23 @@ SOFTWARE.
       if (h && h.object.userData.bot) {
         const b = h.object.userData.bot,
           hs = h.object.userData.head;
-        damageBot(b, w.dmg * (hs ? 2.5 : 1), 'player');
+        damageBot(b, w.dmg * (hs ? 2.5 : 1));
       }
     }
     ray.far = Infinity;
     if (w.ammo <= 0) reload();
     hud();
   }
-  function damageBot(b, d, source) {
-    if (!b.alive || b.team === (source === 'player' ? FRIEND : source)) return;
+  function damageBot(b, d) {
+    if (!b.alive) return;
     b.hp -= d;
-    if (source === 'player') {
-      $('cross').classList.add('hit');
-      setTimeout(() => $('cross').classList.remove('hit'), 90);
-    }
+    $('cross').classList.add('hit');
+    setTimeout(() => $('cross').classList.remove('hit'), 90);
     if (b.hp <= 0) {
       b.alive = false;
       b.g.visible = false;
-      b.rt = b.team === FRIEND ? 7 : 4;
-      if (source === 'player') kills++;
+      b.rt = 4;
+      kills++;
       hud();
     }
   }
@@ -1300,16 +1261,12 @@ SOFTWARE.
     $('go').textContent = 'Tekrar oyna';
     updateUI();
   }
-  // Cached target acquisition keeps the per-frame work small; shots recheck the wall ray.
-  const playerTarget = { team: FRIEND, player: true, pos: P };
-  const SQUAD_SIZE = 2,
-    RIVALS = 6,
+  // Throttle visibility checks and recheck the wall ray when a shot is made.
+  const RIVALS = 6,
     BOT_RANGE = 36;
   const botEye = new THREE.Vector3(),
     targetEye = new THREE.Vector3(),
     traceDir = new THREE.Vector3();
-  const spawnFrom = new THREE.Vector3(),
-    spawnTo = new THREE.Vector3();
   const wallRay = new THREE.Raycaster();
   wallRay.firstHitOnly = true;
   const wallHits = [];
@@ -1322,50 +1279,8 @@ SOFTWARE.
     wallRay.intersectObjects(walls, false, wallHits);
     return wallHits.length === 0;
   }
-  function squadSpawn(b) {
-    // Prefer a visible spot ahead of the player, without placing a teammate on the crosshair.
-    const side = b.slot === 0 ? -1 : 1,
-      yaw = cam.rotation.y;
-    const atX = P.x + side * 1.35 * Math.cos(yaw) - 5.1 * Math.sin(yaw),
-      atZ = P.z - side * 1.35 * Math.sin(yaw) - 5.1 * Math.cos(yaw);
-    const i0 = Math.round(P.x / 0.75),
-      j0 = Math.round(P.z / 0.75);
-    let best = null,
-      alternate = null,
-      bestScore = Infinity,
-      alternateScore = Infinity;
-    spawnFrom.set(P.x, P.y + 1.45, P.z);
-    for (let i = i0 - 10; i <= i0 + 10; i++)
-      for (let j = j0 - 10; j <= j0 + 10; j++) {
-        const nodes = NC.get(nk(i, j));
-        if (!nodes) continue;
-        for (const id of nodes) {
-          const [x, z, y] = NV[id],
-            d = Math.hypot(x - P.x, z - P.z);
-          if (Math.abs(y - P.y) > 1.1 || d < 1.9 || d > 7.5 || !clear(x, z, y, 0.58)) continue;
-          if (
-            bots.some(
-              (o) => o !== b && o.alive && Math.hypot(o.g.position.x - x, o.g.position.z - z) < 1.5,
-            )
-          )
-            continue;
-          const score = (atX - x) ** 2 + (atZ - z) ** 2 + Math.abs(y - P.y) * 4;
-          if (score < alternateScore) {
-            alternateScore = score;
-            alternate = { x, y, z };
-          }
-          if (score >= bestScore) continue;
-          spawnTo.set(x, y + 1.4, z);
-          if (openLine(spawnFrom, spawnTo)) {
-            bestScore = score;
-            best = { x, y, z };
-          }
-        }
-      }
-    return best || alternate || spot(4);
-  }
   function respawn(b) {
-    const start = b.team === FRIEND ? squadSpawn(b) : spot(25);
+    const start = spot(25);
     b.g.position.set(start.x, start.y, start.z);
     b.g.rotation.y = Math.atan2(P.x - start.x, P.z - start.z);
     Object.assign(b, {
@@ -1377,7 +1292,8 @@ SOFTWARE.
       cool: 1 + Math.random() * 0.8,
       scan: Math.random() * 0.5,
       stick: 0,
-      target: null,
+      seesPlayer: false,
+      direct: false,
       path: null,
       pi: 1,
       pt: Math.random() * 0.45,
@@ -1385,31 +1301,12 @@ SOFTWARE.
     });
     b.g.visible = true;
   }
-  function targetPos(target) {
-    return target.player ? target.pos : target.g.position;
-  }
-  function targetAlive(target) {
-    return target.player ? P.hp > 0 : target.alive;
-  }
-  function pickTarget(b) {
+  function seesPlayer(b) {
     const p = b.g.position;
-    let best = null,
-      range = BOT_RANGE;
+    if (Math.hypot(P.x - p.x, P.y - p.y, P.z - p.z) >= BOT_RANGE) return false;
     botEye.set(p.x, p.y + 1.42, p.z);
-    function consider(t) {
-      if (!targetAlive(t) || t.team === b.team) return;
-      const q = targetPos(t),
-        dist = Math.hypot(q.x - p.x, q.y - p.y, q.z - p.z);
-      if (dist >= range) return;
-      targetEye.set(q.x, q.y + (t.player ? 1.51 : 1.44), q.z);
-      if (openLine(botEye, targetEye)) {
-        best = t;
-        range = dist;
-      }
-    }
-    if (b.team === ENEMY) consider(playerTarget);
-    for (const t of bots) consider(t);
-    return best;
+    targetEye.set(P.x, P.y + 1.51, P.z);
+    return openLine(botEye, targetEye);
   }
   function animateSoldier(b, dt, moving) {
     b.pace = THREE.MathUtils.lerp(b.pace, moving ? 1 : 0, Math.min(1, dt * 9));
@@ -1426,20 +1323,17 @@ SOFTWARE.
   }
   const shotStart = new THREE.Vector3(),
     shotEnd = new THREE.Vector3();
-  function fireBot(b, t) {
-    const p = b.g.position,
-      q = targetPos(t);
+  function fireBot(b) {
+    const p = b.g.position;
     shotStart.set(p.x, p.y + 1.31, p.z);
-    shotEnd.set(q.x, q.y + (t.player ? 1.48 : 1.39), q.z);
+    shotEnd.set(P.x, P.y + 1.48, P.z);
     if (!openLine(shotStart, shotEnd)) return;
     b.cool = 1.25 + Math.random() * 0.95;
     b.shot = 1;
-    tracer(shotStart, shotEnd, b.team === FRIEND ? 0x79d9f5 : 0xee9763);
-    const near = Math.hypot(P.x - p.x, P.z - p.z);
-    if (near < 28) snd(0.065, 0.1 * (1 - near / 40), 1450);
-    if (t.player) {
-      if (Math.random() < Math.max(0.08, 0.32 - shotStart.distanceTo(shotEnd) * 0.006)) hurt(5);
-    } else damageBot(t, b.team === FRIEND ? 16 : 13, b.team);
+    tracer(shotStart, shotEnd, 0xee9763);
+    const distance = Math.hypot(P.x - p.x, P.z - p.z);
+    if (distance < 28) snd(0.065, 0.1 * (1 - distance / 40), 1450);
+    if (Math.random() < Math.max(0.08, 0.32 - shotStart.distanceTo(shotEnd) * 0.006)) hurt(5);
   }
   function updateBots(dt) {
     for (const b of bots) {
@@ -1456,25 +1350,24 @@ SOFTWARE.
       b.cool -= dt;
       b.scan -= dt;
       b.pt -= dt;
-      if (b.scan <= 0 || (b.target && !targetAlive(b.target))) {
-        const next = pickTarget(b);
-        if (next !== b.target) {
-          b.target = next;
+      if (b.scan <= 0) {
+        const visible = seesPlayer(b);
+        if (visible !== b.seesPlayer) {
+          b.seesPlayer = visible;
           b.path = null;
           b.pt = 0;
           b.stick = 0;
         }
         b.scan = 0.28 + Math.random() * 0.28;
       }
-      const t = b.target,
-        q = t ? targetPos(t) : P;
-      const dx = q.x - p.x,
+      const q = P,
+        dx = q.x - p.x,
         dz = q.z - p.z,
         d = Math.hypot(dx, dz),
         len = d || 1;
       let mx = 0,
         mz = 0;
-      if (t) {
+      if (b.seesPlayer) {
         b.stick += dt;
         if (d > 13) {
           mx = dx / len;
@@ -1486,10 +1379,9 @@ SOFTWARE.
           mx = (-dz / len) * b.dir * 0.7;
           mz = (dx / len) * b.dir * 0.7;
         }
-        if (b.cool <= 0 && b.stick > 0.27 && d < BOT_RANGE) fireBot(b, t);
+        if (b.cool <= 0 && b.stick > 0.27 && d < BOT_RANGE) fireBot(b);
       } else {
-        const comfortable = b.team === FRIEND ? 3.7 + b.slot * 0.65 : 6;
-        if (d > comfortable || Math.abs(q.y - p.y) > 2) {
+        if (d > 6 || Math.abs(q.y - p.y) > 2) {
           if (b.pt <= 0) {
             b.pt = (profile === quality.mobile ? 0.9 : 0.6) + Math.random() * 0.38;
             // Prefer walking directly when on the same level and within clear range.
@@ -1519,7 +1411,7 @@ SOFTWARE.
           }
         }
       }
-      // Soft separation keeps teammates from standing on each other or on the player.
+      // Soft separation keeps opponents from standing on each other or on the player.
       function avoid(q) {
         const x = p.x - q.x,
           z = p.z - q.z,
@@ -1535,7 +1427,7 @@ SOFTWARE.
         oldX = p.x,
         oldZ = p.z;
       if (m > 0.01) {
-        const speed = ((b.team === FRIEND && !t && d > 8 ? 5.55 : 2.65) * dt) / Math.max(1, m);
+        const speed = (2.65 * dt) / Math.max(1, m);
         p.x += mx * speed;
         p.z += mz * speed;
         push(p, 0.42, p.y);
@@ -1547,7 +1439,7 @@ SOFTWARE.
         }
       }
       const moved = Math.hypot(p.x - oldX, p.z - oldZ) > 0.009;
-      const face = t ? Math.atan2(dx, dz) : moved ? Math.atan2(mx, mz) : b.g.rotation.y;
+      const face = b.seesPlayer ? Math.atan2(dx, dz) : moved ? Math.atan2(mx, mz) : b.g.rotation.y;
       const angle = face - b.g.rotation.y;
       b.g.rotation.y += Math.atan2(Math.sin(angle), Math.cos(angle)) * Math.min(1, dt * 12);
       animateSoldier(b, dt, moved);
@@ -1569,13 +1461,6 @@ SOFTWARE.
       b.g.visible = false;
     }
     bots.forEach(respawn);
-    const [left, right] = bots.filter((b) => b.team === FRIEND).map((b) => b.g.position);
-    if (left && right) {
-      const a = Math.atan2(P.x - left.x, P.z - left.z),
-        b = Math.atan2(P.x - right.x, P.z - right.z);
-      const gap = Math.atan2(Math.sin(b - a), Math.cos(b - a));
-      cam.rotation.y = a + (Math.abs(gap) < 0.68 ? gap * 0.5 : 0);
-    }
     hud();
   }
   // The original glTF assets are embedded below as inert JSON, not network URLs.
@@ -1593,7 +1478,7 @@ SOFTWARE.
   function fail(message, error) {
     failed = true;
     ready = false;
-    pendingLock = false;
+    pendingLock = 0;
     clearInput();
     state = 'menu';
     stopPointerLock();
@@ -1602,7 +1487,7 @@ SOFTWARE.
     $('go').disabled = false;
     $('go').textContent = 'Yeniden yükle';
     $('go').onclick = () => location.reload();
-    notice();
+    updateUI();
     if (error) console.error(error);
   }
   async function load() {
@@ -1638,8 +1523,7 @@ SOFTWARE.
       });
       sun.shadow.camera.updateProjectionMatrix();
       prepRifles(r.scene);
-      for (let i = 0; i < SQUAD_SIZE; i++) bots.push(mkBot(FRIEND, i));
-      for (let i = 0; i < RIVALS; i++) bots.push(mkBot(ENEMY, i));
+      for (let i = 0; i < RIVALS; i++) bots.push(mkBot(i));
       pick(0);
       reset();
       profile = null;
@@ -1667,10 +1551,12 @@ SOFTWARE.
     navigator.maxTouchPoints > 0 ||
     Math.min(game.clientWidth, game.clientHeight) <= 600;
   let preferred = null,
+    sessionInput = null,
     mode = wantsTouch() ? 'touch' : 'mouse',
     ready = false,
     failed = false,
-    pendingLock = false,
+    pendingLock = 0,
+    lockSequence = 0,
     relockOnUnlock = false,
     unlockedMouse = false;
   let joystickX = 0,
@@ -1721,7 +1607,7 @@ SOFTWARE.
     if (ready && state !== 'play') renderGame();
   }
   function updateMode() {
-    const next = preferred ?? (wantsTouch() ? 'touch' : 'mouse');
+    const next = preferred ?? sessionInput ?? (wantsTouch() ? 'touch' : 'mouse');
     if (mode !== next && state === 'play') pauseGame();
     mode = next;
     game.dataset.input = mode;
@@ -1733,14 +1619,11 @@ SOFTWARE.
     $('inv').hidden = state !== 'inv';
     $('hud').hidden = state !== 'play';
     $('touch').hidden = state !== 'play' || mode !== 'touch';
-    $('unlocked').hidden = !ready || failed || mode !== 'mouse' || $('notice').hidden;
+    $('viewMode').hidden = state !== 'play' || mode !== 'mouse' || !unlockedMouse;
   }
-  function notice(message = '') {
-    $('notice').textContent = message;
-    $('notice').hidden = !message;
-    updateUI();
-  }
+  let lastMouse = null;
   function clearInput() {
+    lastMouse = null;
     K.clear();
     held = false;
     pendingShot = false;
@@ -1771,28 +1654,37 @@ SOFTWARE.
   function enterGame() {
     if (state === 'dead') reset();
     state = 'play';
-    notice();
+    lastMouse = null;
+    updateUI();
     lastFrame = 0;
     invalidate();
   }
-  function lockFailed() {
-    if (!pendingLock) return;
-    pendingLock = false;
-    if (state === 'inv') {
-      state = 'pause';
-      $('mt').textContent = 'Duraklatıldı';
-      $('ms').textContent = 'Envanterden oyuna dön.';
-      $('go').textContent = 'Devam et';
-    }
-    notice(
-      'Tarayıcı fareyi kilitleyemedi. Önizlemeyi ayrı sekmede açabilir veya fare kilidi olmadan oynayabilirsin.',
-    );
+  function fullscreenActive() {
+    return Boolean(document.fullscreenElement || document.webkitFullscreenElement);
   }
-  function start(fallback = false) {
+  function requestGameFullscreen() {
+    if (fullscreenActive()) return;
+    const request = game.requestFullscreen || game.webkitRequestFullscreen;
+    if (!request) return;
+    try {
+      request.call(game)?.catch(() => {
+        /* Embedded previews and some mobile browsers deny fullscreen. */
+      });
+    } catch {}
+  }
+  function lockFailed(requestId) {
+    if (requestId !== pendingLock) return;
+    pendingLock = 0;
+    if (mode !== 'mouse' || document.hidden || failed) return;
+    unlockedMouse = true;
+    enterGame();
+  }
+  function start({ fullscreen = false, keepUnlocked = false } = {}) {
     if (!ready || failed || state === 'play' || pendingLock) return;
     initAudio();
-    if (mode === 'touch' || fallback) {
-      unlockedMouse = fallback;
+    if (mode === 'touch' || keepUnlocked) {
+      unlockedMouse = mode === 'mouse' && keepUnlocked;
+      if (fullscreen) requestGameFullscreen();
       enterGame();
       return;
     }
@@ -1801,25 +1693,25 @@ SOFTWARE.
       return;
     }
     unlockedMouse = false;
-    pendingLock = true;
+    const attempt = ++lockSequence;
+    pendingLock = attempt;
     try {
-      // The browser may return a promise or signal failure via pointerlockerror.
-      if (!cv.requestPointerLock) {
-        lockFailed();
-        return;
-      }
-      cv.requestPointerLock()?.catch(lockFailed);
+      // Fullscreen consumes transient activation; initiate pointer lock first in the same click.
+      if (!cv.requestPointerLock) lockFailed(attempt);
+      else cv.requestPointerLock()?.catch(() => lockFailed(attempt));
     } catch {
-      lockFailed();
+      lockFailed(attempt);
     }
+    if (fullscreen) requestGameFullscreen();
+    setTimeout(() => lockFailed(attempt), 2000);
   }
   mouse.addEventListener('lock', () => {
     if (mode !== 'mouse' || !pendingLock || document.hidden) {
-      pendingLock = false;
+      pendingLock = 0;
       stopPointerLock();
       return;
     }
-    pendingLock = false;
+    pendingLock = 0;
     enterGame();
   });
   mouse.addEventListener('unlock', () => {
@@ -1830,14 +1722,28 @@ SOFTWARE.
     }
     if (mode === 'mouse' && !unlockedMouse) pauseGame();
   });
-  document.addEventListener('pointerlockerror', lockFailed);
-  $('go').onclick = () => start();
-  $('resume').onclick = () => start(unlockedMouse);
-  $('unlocked').onclick = () => start(true);
+  document.addEventListener('pointerlockerror', () => {
+    if (pendingLock) lockFailed(pendingLock);
+  });
+  $('go').onclick = (event) => {
+    // A real mouse click should not be routed to the touch overlay on a narrow desktop window.
+    if (
+      preferred === null &&
+      event.pointerType === 'mouse' &&
+      !coarse.matches &&
+      !navigator.maxTouchPoints
+    ) {
+      sessionInput = 'mouse';
+      updateMode();
+    }
+    start({ fullscreen: true });
+  };
+  $('resume').onclick = () => start({ keepUnlocked: unlockedMouse });
+  $('fullscreen').onclick = requestGameFullscreen;
   $('mode').onclick = () => {
     preferred = mode === 'touch' ? 'mouse' : 'touch';
-    pendingLock = relockOnUnlock = false;
-    notice();
+    pendingLock = 0;
+    relockOnUnlock = false;
     updateMode();
   };
   function openInventory() {
@@ -1861,6 +1767,12 @@ SOFTWARE.
     'Space',
     'KeyR',
     'KeyE',
+    'KeyF',
+    'KeyM',
+    'ArrowLeft',
+    'ArrowRight',
+    'ArrowUp',
+    'ArrowDown',
     'Digit1',
     'Digit2',
     'Digit3',
@@ -1871,7 +1783,7 @@ SOFTWARE.
     if (state === 'inv') {
       if (e.code === 'KeyE' && !e.repeat) {
         e.preventDefault();
-        start(unlockedMouse);
+        start({ keepUnlocked: unlockedMouse });
       }
       if (/^Digit[1-5]$/.test(e.code) && !e.repeat) {
         e.preventDefault();
@@ -1885,19 +1797,24 @@ SOFTWARE.
     if (e.repeat) return;
     if (e.code === 'Escape') pauseGame();
     if (e.code === 'KeyE') openInventory();
+    if (e.code === 'KeyF') requestGameFullscreen();
+    if (e.code === 'KeyM' && mode === 'mouse' && !unlockedMouse) {
+      clearInput();
+      unlockedMouse = true;
+      stopPointerLock();
+      updateUI();
+    }
     if (e.code === 'KeyR') reload();
     if (e.code === 'Space') pendingJump = 0.14;
     if (/^Digit[1-5]$/.test(e.code)) pick(Number(e.code.slice(-1)) - 1);
   });
   addEventListener('keyup', (e) => K.delete(e.code));
-  addEventListener('blur', () => {
-    pendingLock = relockOnUnlock = false;
-    clearInput();
-    if (mode === 'mouse') pauseGame();
-  });
+  // Fullscreen handoffs may blur briefly; visibility and pointer lock changes handle real exits.
+  addEventListener('blur', clearInput);
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-      pendingLock = relockOnUnlock = false;
+      pendingLock = 0;
+      relockOnUnlock = false;
       clearInput();
       pauseGame();
     } else if (ready) invalidate();
@@ -1935,9 +1852,16 @@ SOFTWARE.
   game.addEventListener('contextmenu', (e) => {
     if (state === 'play') e.preventDefault();
   });
-  cv.addEventListener('mousemove', (e) => {
-    if (state === 'play' && unlockedMouse && mode === 'mouse')
-      turn(e.movementX || 0, e.movementY || 0, 0.003);
+  cv.addEventListener('pointerenter', (e) => {
+    if (e.pointerType === 'mouse' && unlockedMouse) lastMouse = [e.clientX, e.clientY];
+  });
+  cv.addEventListener('pointerleave', () => {
+    lastMouse = null;
+  });
+  cv.addEventListener('pointermove', (e) => {
+    if (state !== 'play' || mode !== 'mouse' || !unlockedMouse || e.pointerType !== 'mouse') return;
+    if (lastMouse) turn(e.clientX - lastMouse[0], e.clientY - lastMouse[1], 0.0036);
+    lastMouse = [e.clientX, e.clientY];
   });
   function drag(id, onMove, onEnd = () => {}, onStart = () => {}) {
     const el = $(id);
@@ -2054,6 +1978,11 @@ SOFTWARE.
     lastFrame = now;
     for (const line of tracerPool) if (line.visible && now >= line.userData.until) line.visible = false;
     if (state === 'play') {
+      if (mode === 'mouse') {
+        const x = Number(K.has('ArrowRight')) - Number(K.has('ArrowLeft'));
+        const y = Number(K.has('ArrowDown')) - Number(K.has('ArrowUp'));
+        if (x || y) turn(x, y, 1.85 * dt);
+      }
       const f = Number(K.has('KeyW')) - Number(K.has('KeyS')) + joystickY;
       const s = Number(K.has('KeyD')) - Number(K.has('KeyA')) + joystickX;
       const running = K.has('ShiftLeft') || K.has('ShiftRight') || touchRun,
